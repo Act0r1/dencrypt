@@ -1,0 +1,13 @@
+[package]
+name = "dencrypt"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = { version = "4.4.8", feautures = ['derive', 'cargo'], features = ["cargo"] }
+chacha20poly1305 = { version = "0.9.0", features = ["stream"] }
+anyhow = "1.0"
+rand = "0.8"
+lazy_static = "1.4.0"
