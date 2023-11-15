@@ -82,16 +82,16 @@ fn main() {
         .get_matches();
     if let Some(config_path) = matches.get_one::<PathBuf>("prepare") {
         println!("Value for config: {}", config_path.display());
-        let _ = encrypt_file("./example.txt".into(), "./example.txt".into(), &key, &nonce);
+        let _ = encrypt_file(config_path.into(), config_path.into(), &key, &nonce);
     }
     if let Some(config_path) = matches.get_one::<PathBuf>("read") {
         println!("Value for config: {}", config_path.display());
-        let cont = read_content("./example.txt".into(), &key, &nonce);
+        let cont = read_content(config_path.into(), &key, &nonce);
         println!("{:?}", cont);
     }
     if let Some(config_path) = matches.get_one::<PathBuf>("decrypt") {
         println!("Value for config: {}", config_path.display());
-        let _ = decrypt_file("./example.txt".into(),"./example.txt".into(),  &key, &nonce);
+        let _ = decrypt_file(config_path.into(),config_path.into(),  &key, &nonce);
     }
  
 }
@@ -135,8 +135,8 @@ fn encrypt_file(
 }
 
 fn decrypt_file(
-    encrypted_file_path: &str,
-    dist: &str,
+    encrypted_file_path: PathBuf,
+    dist: PathBuf,
     key: &[u8; 32],
     nonce: &[u8; 24],
 ) -> Result<(), anyhow::Error> {
