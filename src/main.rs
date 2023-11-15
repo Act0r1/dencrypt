@@ -1,6 +1,5 @@
 #[macro_use]
 extern crate lazy_static;
-
 use anyhow::anyhow;
 use chacha20poly1305::{
     aead::{Aead, NewAead},
@@ -85,7 +84,7 @@ fn main() {
     }
     if let Some(config_path) = matches.get_one::<PathBuf>("read") {
         println!("Value for config: {}", config_path.display());
-        let cont = read_content(config_path.into(), &key, &nonce);
+        let cont = read_content(config_path.into(), &key, &nonce).unwrap();
         println!("{:?}", cont);
     }
     if let Some(config_path) = matches.get_one::<PathBuf>("decrypt") {
