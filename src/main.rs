@@ -3,7 +3,7 @@ extern crate lazy_static;
 
 use anyhow::anyhow;
 use chacha20poly1305::{
-    aead::{Aead, NewAead, AeadInPlace, Buffer},
+    aead::{Aead, NewAead},
     XChaCha20Poly1305,
 };
 
@@ -145,7 +145,6 @@ fn decrypt_file(
 
     let decrypted_file = cipher
         .decrypt(nonce.into(), file_data.as_ref()).unwrap();
-    println!("asdasd");
 
     fs::write(&dist, decrypted_file)?;
 
