@@ -58,7 +58,6 @@ fn main() {
     let mut nonce = [0u8; 24];
     key.copy_from_slice(_key);
     nonce.copy_from_slice(_nonce);
-    println!("{:?}", key);
 
 
     let matches = command!() // requires `cargo` feature
