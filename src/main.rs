@@ -59,9 +59,6 @@ fn main() {
 
 
     let matches = command!() // requires `cargo` feature
-        .after_help("asdasdasd")
-        .arg_required_else_help(true)
-                             // 
         .arg(arg!([name] "Путь до файла"))
         .arg(
             arg!(
@@ -71,14 +68,12 @@ fn main() {
             .required(false)
             .value_parser(value_parser!(PathBuf)),
         )
-        // .arg(arg!( -d --debug ... "Turn debugging information on"))
         .arg(arg!(-r --read <FILE> "Получает путь на шифрованный файл и выводит в консоль его содержимое")
              .required(false)
              .value_parser(value_parser!(PathBuf)))
         .arg(arg!(-d --decrypt <FILE> "Получает путь на файл и расшифровывает его заменяя содержимое на читаемый формат")
              .required(false)
              .value_parser(value_parser!(PathBuf)))
-        
         .get_matches();
     if let Some(config_path) = matches.get_one::<PathBuf>("prepare") {
         println!("Value for config: {}", config_path.display());
@@ -102,7 +97,6 @@ fn read_content(
     nonce: &[u8; 24]
     ) -> Result<String, Box<dyn std::error::Error>>
 {
-    // println!("asdasd");
     let cipher = XChaCha20Poly1305::new(key.into());
 
     let file_data = fs::read(filepath)?;
@@ -119,15 +113,11 @@ fn encrypt_file(
     key: &[u8; 32],
     nonce: &[u8; 24],
 ) -> Result<(), anyhow::Error> {
-    
     let cipher = XChaCha20Poly1305::new(key.into());
-
     let file_data = fs::read(filepath)?;
-
     let encrypted_file = cipher
         .encrypt(nonce.into(), file_data.as_ref())
         .map_err(|err| anyhow!("No such a file: {}", err))?;
-    // println!("{:?}", encrypted_file);
 
     fs::write(&dist, encrypted_file)?;
 
