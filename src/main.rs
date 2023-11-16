@@ -48,7 +48,6 @@ fn read_or_create_file(file_path: &str) -> Result<Vec<u8>, Box<dyn std::error::E
         Ok(v)
     }
 }
-
 fn main() {
     let seeds = read_or_create_file("./.seed").unwrap();
     // println!("{:?}", seeds.len());
@@ -60,6 +59,9 @@ fn main() {
 
 
     let matches = command!() // requires `cargo` feature
+        .after_help("asdasdasd")
+        .arg_required_else_help(true)
+                             // 
         .arg(arg!([name] "Путь до файла"))
         .arg(
             arg!(
